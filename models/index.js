@@ -35,7 +35,7 @@ Post.hasMany(Vote, {
   foreignKey: 'post_id'
 });
 
-Post. hasMany(Comment, {
+Post.hasMany(Comment, {
     foreignKey: 'post_id'
 });
 
