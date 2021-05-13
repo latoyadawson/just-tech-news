@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Post, User, Vote, Comment } = require('../../models');
 const sequelize = require('../../config/connection');
+const withAuth = require('../../utils/auth');
 
 //GET comment
 router.get('/', (req, res) =>{
@@ -30,7 +31,7 @@ router.get('/', (req, res) =>{
 });
 
 //POST comment (create)
-router.post('/', (req, res) =>{
+router.post('/', withAuth, (req, res) =>{
     // expects => {comment_text: "This is the comment", user_id: 1, post_id: 2}
     if (req.session) {
         Comment.create({
@@ -48,9 +49,8 @@ router.post('/', (req, res) =>{
     
 });
 
-
 //DELETE comment
-router.delete('/:id', (req, res) =>{
+router.delete('/:id', withAuth, (req, res) =>{
    Comment.destroy({
         where: {
             id: req.params.id
